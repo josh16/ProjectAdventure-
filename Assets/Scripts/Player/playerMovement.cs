@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour {
 
-	public float moveSpeed = 5;
+	public float moveSpeed = 3;
 	public float turnSpeed = 5;
 	public float jumpForce;
+
 
 	Rigidbody rb;
 
@@ -14,13 +15,14 @@ public class playerMovement : MonoBehaviour {
 
 	public CapsuleCollider col;
 
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		
+
 	}
 	
-
-
 
 	void FixedUpdate()
 	{
@@ -57,8 +59,6 @@ public class playerMovement : MonoBehaviour {
 			transform.Translate (0f, 0f, -moveSpeed);
 		}
 
-
-
 		//Rotation Controls
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
@@ -71,12 +71,11 @@ public class playerMovement : MonoBehaviour {
 
 
 
+
 		//Jump
 		if (isGrounded() && Input.GetKeyDown(KeyCode.Space)) {
 
 			rb.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
-
-
 		}
 
 	}
@@ -87,6 +86,22 @@ public class playerMovement : MonoBehaviour {
 	{
 		return Physics.CheckCapsule (col.bounds.center, new Vector3 (col.bounds.center.x, col.bounds.min.y, col.bounds.center.z), 
 			col.radius * .10f, groundedLayer);
+	}
+
+
+	void OnTriggerEnter(Collider other)
+	{
+
+
+		//Pickup GameObject
+		//if (Input.GetKey (KeyCode.E)) 
+		//{
+			if (other.gameObject.tag == "Orb") 
+			{
+				Debug.Log ("Pressed E!");
+			}
+		//}
+
 
 
 	}
